@@ -45,6 +45,10 @@ _`${ZDOTDIR:-$HOME}/.zpreztorc`_.
 zstyle ':prezto:module:git:alias' skip 'yes'
 ```
 
+Aliases are enabled by default. You can disable them with:
+
+    zstyle ':prezto:module:git:alias' skip 'yes'
+
 ### Git
 
 - `g` is short for `git`.
