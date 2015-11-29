@@ -102,6 +102,7 @@ function prompt_paradox_precmd {
 
 function prompt_paradox_preexec {
   _prompt_paradox_start_time="$SECONDS"
+  python-info
 }
 
 function prompt_paradox_setup {
