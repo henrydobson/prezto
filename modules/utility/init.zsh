@@ -179,7 +179,12 @@ fi
 unset _download_helper{,s}
 
 # Resource Usage
-alias df='df -kh'
+if (( $+commands[pydf] )); then
+  alias df=pydf
+else
+  alias df='df -kh'
+fi
+
 alias du='du -kh'
 
 if is-darwin || is-bsd; then
