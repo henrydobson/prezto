@@ -60,7 +60,7 @@ alias mkdir="${aliases[mkdir]:-mkdir} -p"
 alias p='${(z)PAGER}'
 alias po='popd'
 alias pu='pushd'
-alias sa='alias | grep -i'
+alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
 
 # Safe ops. Ask the user before doing anything destructive.
