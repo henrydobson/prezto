@@ -35,11 +35,14 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt'
+  'prompt' \
+  'osx' \
+  'rsync'
 
 #
 # Autosuggestions
 #
+zstyle ':prezto:module:autosuggestions' color 'yes'
 
 # Set the query found color.
 # zstyle ':prezto:module:autosuggestions:color' found ''
@@ -52,13 +55,15 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
 # Git
 #
+zstyle ':prezto:module:git:log:context' format 'oneline'
 
 # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
+
 # zstyle ':prezto:module:git:status:ignore' submodules 'all'
 
 #
@@ -127,32 +132,32 @@ zstyle ':prezto:module:prompt' theme 'paradox'
 
 # Set syntax highlighters.
 # By default, only the main highlighter is enabled.
-# zstyle ':prezto:module:syntax-highlighting' highlighters \
-#   'main' \
-#   'brackets' \
-#   'pattern' \
-#   'line' \
-#   'cursor' \
-#   'root'
-#
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+  'main' \
+  'brackets' \
+  'pattern' \
+  'line' \
+  'cursor' \
+  'root'
+
 # Set syntax highlighting styles.
-# zstyle ':prezto:module:syntax-highlighting' styles \
-#   'builtin' 'bg=blue' \
-#   'command' 'bg=blue' \
-#   'function' 'bg=blue'
+zstyle ':prezto:module:syntax-highlighting' styles \
+  'builtin' 'bg=blue' \
+  'command' 'bg=blue' \
+  'function' 'bg=blue'
 
 #
 # Terminal
 #
 
 # Auto set the tab and window titles.
-# zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Set the window title format.
 # zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 
 # Set the tab title format.
-# zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
+zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 #
 # Tmux
@@ -166,3 +171,54 @@ zstyle ':prezto:module:prompt' theme 'paradox'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+
+
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+path=("/usr/local/opt/gnu-sed/libexec/gnubin" $path);
+export PATH
+
+# why would you type 'cd dir' if you could just type 'dir'?
+setopt AUTO_CD
+
+# Incremental search is elite!
+bindkey -M vicmd "/" history-incremental-search-backward
+bindkey -M vicmd "?" history-incremental-search-forward
+
+# Search based on what you typed in already
+bindkey -M vicmd "//" history-beginning-search-backward
+bindkey -M vicmd "??" history-beginning-search-forward
+
+bindkey "\eOP" run-help
+
+# oh wow!  This is killer...  try it!
+bindkey -M vicmd "q" push-line
+
+# it's like, space AND completion.  Gnarlbot.
+bindkey -M viins ' ' magic-space
+
+export EDITOR='vim'
+export VISUAL='vim'
+
+alias vim=nvim
+alias vi=nvim
+
+# Custom scripts 
+
+autoload -U compinit && compinit
+
+source /usr/local/bin/aws_zsh_completer.sh
+
+if [ -d $HOME/.zfunc ]; then
+        fpath=($HOME/.zfunc "${fpath[@]}")
+        # [ -x $HOME/bin/zfunc/pkgsearch ] && autoload pkgsearch
+        # [ -x $HOME/bin/zfunc/tf_cirrus ] && autoload tf_cirrus
+        if [ -d $HOME/.zfunc/aws ]; then
+                fpath=($HOME/.zfunc/aws "${fpath[@]}")
+                autoload aws_set_env aws_clear_env _profile_completion
+                compdef _profile_completion aws_set_env
+        fi
+fi
+
+[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
