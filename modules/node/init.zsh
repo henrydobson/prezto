@@ -33,6 +33,14 @@ fi
 
 unset local_n{odenv,vm}_paths nvm_path
 
+# Load manually installed nodenv into the shell session.
+elif [[ -s "$HOME/.nodenv/bin/nodenv" ]]; then
+  eval "$($HOME/.nodenv/bin/nodenv init -)"
+
+# Load package manager installed nodenv into the shell session.
+elif (( $+commands[brew] )) && [[ -d "$(brew --prefix nodenv 2>/dev/null)" ]]; then
+  eval "$($(brew --prefix nodenv)/bin/nodenv init -)"
+
 # Return if requirements are not found.
 if (( ! $+commands[node] && ! $#functions[(i)n(odenv|vm)] )); then
   return 1
