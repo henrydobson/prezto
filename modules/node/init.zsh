@@ -35,7 +35,7 @@ unset local_n{odenv,vm}_paths nvm_path
 
 # Load manually installed nodenv into the shell session.
 elif [[ -s "$HOME/.nodenv/bin/nodenv" ]]; then
-  path=("$HOME/.rbenv/bin $path")
+  path=("$HOME/.nodenv/bin $path")
   eval "$(nodenv init - --no-rehash zsh)"
 
 # Load package manager installed nodenv into the shell session.
