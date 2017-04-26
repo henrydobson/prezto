@@ -105,6 +105,9 @@ zstyle ':prezto:module:git:log:context' format 'oneline'
 # Auto set to 'off' on dumb terminals.
 zstyle ':prezto:module:prompt' theme 'paradox'
 
+# Display pwd in long format for themes that use promptpwd function
+# zstyle ':prezto:module:prompt' long-pwd 'yes'
+
 #
 # Ruby
 #
