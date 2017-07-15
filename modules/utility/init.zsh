@@ -72,8 +72,6 @@ function rsync_wrap {
 function scp_wrap {
   rsync_scp_wrap "scp" "$@"
 }
-compdef _rsync rsync_wrap
-compdef _scp scp_wrap
 
 alias sftp='noglob sftp'
 
