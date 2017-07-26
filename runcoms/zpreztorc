@@ -1,9 +1,7 @@
-#
 # Sets Prezto options.
 #
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 #
 # General
@@ -30,6 +28,7 @@ zstyle ':prezto:load' pmodule \
   'history' \
   'ssh' \
   'git' \
+  'gpg' \
   'history-substring-search' \
   'directory' \
   'spectrum' \
@@ -37,7 +36,9 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'prompt' \
   'osx' \
-  'rsync'
+  'rsync' \
+  'syntax-highlighting' \
+  'screen'
 
 #
 # Autosuggestions
@@ -50,7 +51,6 @@ zstyle ':prezto:module:autosuggestions' color 'yes'
 #
 # Editor
 #
-
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 
@@ -64,28 +64,22 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Git
 #
 zstyle ':prezto:module:git:log:context' format 'oneline'
-
 # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
-
 # zstyle ':prezto:module:git:status:ignore' submodules 'all'
 
 #
 # GNU Utility
 #
-
 # Set the command prefix on non-GNU systems.
 # zstyle ':prezto:module:gnu-utility' prefix 'g'
 
 #
 # History Substring Search
 #
-
 # Set the query found color.
 # zstyle ':prezto:module:history-substring-search:color' found ''
-
 # Set the query not found color.
 # zstyle ':prezto:module:history-substring-search:color' not-found ''
-
 # Set the search globbing flags.
 # zstyle ':prezto:module:history-substring-search' globbing-flags ''
 
@@ -99,14 +93,12 @@ zstyle ':prezto:module:git:log:context' format 'oneline'
 #
 # Pacman
 #
-
 # Set the Pacman frontend.
 # zstyle ':prezto:module:pacman' frontend 'yaourt'
 
 #
 # Prompt
 #
-
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
@@ -120,7 +112,6 @@ zstyle ':prezto:module:prompt' theme 'paradox'
 #
 # Ruby
 #
-
 # Auto switch the Ruby version on directory change.
 # zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
 
@@ -137,24 +128,20 @@ zstyle ':prezto:module:prompt' theme 'paradox'
 #
 # Screen
 #
-
 # Auto start a session when Zsh is launched in a local terminal.
 # zstyle ':prezto:module:screen:auto-start' local 'yes'
-
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:screen:auto-start' remote 'yes'
 
 #
 # SSH
 #
-
 # Set the SSH identities to load into the agent.
 # zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
 
 #
 # Syntax Highlighting
 #
-
 # Set syntax highlighters.
 # By default, only the main highlighter is enabled.
 zstyle ':prezto:module:syntax-highlighting' highlighters \
@@ -174,13 +161,10 @@ zstyle ':prezto:module:syntax-highlighting' styles \
 #
 # Terminal
 #
-
 # Auto set the tab and window titles.
 zstyle ':prezto:module:terminal' auto-title 'yes'
-
 # Set the window title format.
 # zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
-
 # Set the tab title format.
 zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
@@ -195,22 +179,20 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 #
 # Tmux
 #
-
 # Auto start a session when Zsh is launched in a local terminal.
 # zstyle ':prezto:module:tmux:auto-start' local 'yes'
-
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
-
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
-
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-path=("/usr/local/opt/gnu-sed/libexec/gnubin" $path);
-export PATH
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD
@@ -234,14 +216,19 @@ bindkey -M viins ' ' magic-space
 export EDITOR='vim'
 export VISUAL='vim'
 
+#
+# Aliases
+#
 alias vim=nvim
 alias vi=nvim
+alias gpg=gpg2
 
 # Custom scripts 
 
 autoload -U compinit && compinit
 
 source /usr/local/bin/aws_zsh_completer.sh
+source <(kompose completion zsh)
 
 if [ -d $HOME/.zfunc ]; then
         fpath=($HOME/.zfunc "${fpath[@]}")
@@ -252,6 +239,11 @@ if [ -d $HOME/.zfunc ]; then
                 autoload aws_set_env aws_clear_env _profile_completion
                 compdef _profile_completion aws_set_env
         fi
+#        if [ -d $HOME/.zfunc/k8s ]; then
+#                fpath=($HOME/.zfunc/k8s "${fpath[@]}")
+#                autoload k8s_set_env _profile_completion
+#                compdef _profile_completion k8s_set_env
+#        fi
 fi
 
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'

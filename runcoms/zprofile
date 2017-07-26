@@ -43,10 +43,21 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  /bin
+  /usr/bin
+  /usr/sbin
   /usr/local/{bin,sbin}
+  /usr/local/munki
+  /usr/local/MacGPG2/bin/
+  /Users/henry.dobson/.fastlane/bin
+  /usr/local/opt/gnu-sed/libexec/gnubin
+  /Applications/Wireshark.app/Contents/MacOS
   $path
 )
 
+# export PATH="/Users/henry.dobson/.fastlane/bin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/munki"
+# path=("/usr/local/opt/gnu-sed/libexec/gnubin" $path);
+# export PATH
 #
 # Less
 #
