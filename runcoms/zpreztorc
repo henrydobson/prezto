@@ -21,6 +21,8 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Zsh functions to load (man zshcontrib).
 # zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 
+launchctl stop com.openssh.ssh-agent
+
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -204,6 +206,8 @@ export EDITOR='vim'
 export VISUAL='vim'
 
 alias vi=vim
+alias t=terraform
+alias k=kubectl
 alias sed=gsed
 
 # Custom scripts 
