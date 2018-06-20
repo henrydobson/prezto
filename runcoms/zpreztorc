@@ -230,7 +230,6 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
-<<<<<<< HEAD
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -280,16 +279,3 @@ fi
 
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
 
-=======
-# Set the default session name:
-# zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'
-
-#
-# Utility
-#
-
-# Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
-# before deleting or overwriting files. Set to 'no' to disable this safer
-# behavior.
-# zstyle ':prezto:module:utility' safe-ops 'yes'
->>>>>>> upstream/master

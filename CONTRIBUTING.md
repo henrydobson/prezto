@@ -32,11 +32,7 @@ there are a number of additional things to keep in mind.
    - Prefer `zstyle` over environment variables for configuration.
    - Prefer (( ... )) over [[ ... ]] for arithmetic expression.
    - Use the function keyword to define functions.
-<<<<<<< HEAD
-   - The 80 character hard limit can be waved for readability.
-=======
    - The 80 character hard limit can be waived for readability.
->>>>>>> upstream/master
 
 #### Using an Alternative zprezto Directory
 

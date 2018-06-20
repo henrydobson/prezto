@@ -30,15 +30,6 @@ function zprezto-update {
       printf "to manually pull and possibly merge in changes\n"
     }
     cd -q -- "${ZPREZTODIR}" || return 7
-<<<<<<< HEAD
-    local orig_branch="$(git symbolic-ref HEAD 2>/dev/null | cut -d '/' -f 3)"
-    if [[ "$orig_branch" == "master" ]]; then
-      git fetch || return "$?"
-      local UPSTREAM=$(git rev-parse '@{u}')
-      local LOCAL=$(git rev-parse @)
-      local REMOTE=$(git rev-parse "$UPSTREAM")
-      local BASE=$(git merge-base @ "$UPSTREAM")
-=======
     local orig_branch="$(git symbolic-ref HEAD 2> /dev/null | cut -d '/' -f 3)"
     if [[ "$orig_branch" == "master" ]]; then
       git fetch || return "$?"
@@ -46,16 +37,11 @@ function zprezto-update {
       local LOCAL=$(git rev-parse HEAD)
       local REMOTE=$(git rev-parse "$UPSTREAM")
       local BASE=$(git merge-base HEAD "$UPSTREAM")
->>>>>>> upstream/master
       if [[ $LOCAL == $REMOTE ]]; then
         printf "There are no updates.\n"
         return 0
       elif [[ $LOCAL == $BASE ]]; then
-<<<<<<< HEAD
-        printf "There is an update availible. Trying to pull.\n\n"
-=======
         printf "There is an update available. Trying to pull.\n\n"
->>>>>>> upstream/master
         if git pull --ff-only; then
           printf "Syncing submodules\n"
           git submodule update --recursive
@@ -89,9 +75,6 @@ function pmodload {
   local -a pmodule_dirs
   local -a locations
   local pmodule
-<<<<<<< HEAD
-  local pfunction_glob='^([_.]*|prompt_*_setup|README*|*~)(-.N:t)'
-=======
   local pmodule_location
   local pfunction_glob='^([_.]*|prompt_*_setup|README*|*~)(-.N:t)'
 
@@ -104,41 +87,14 @@ function pmodload {
   done
 
   pmodule_dirs=("$ZPREZTODIR/modules" "$ZPREZTODIR/contrib" "$user_pmodule_dirs[@]")
->>>>>>> upstream/master
 
   # $argv is overridden in the anonymous function.
   pmodules=("$argv[@]")
 
-<<<<<<< HEAD
-  # Add functions to $fpath.
-  fpath=(${pmodules:+$ZPREZTODIR/modules/${^pmodules}/functions(/FN)} $fpath)
-
-  function {
-    local pfunction
-
-    # Extended globbing is needed for listing autoloadable function directories.
-    setopt LOCAL_OPTIONS EXTENDED_GLOB
-
-    # Load Prezto functions.
-    for pfunction in $ZPREZTODIR/modules/${^pmodules}/functions/$~pfunction_glob; do
-      autoload -Uz "$pfunction"
-    done
-  }
-
-=======
->>>>>>> upstream/master
   # Load Prezto modules.
   for pmodule in "$pmodules[@]"; do
     if zstyle -t ":prezto:module:$pmodule" loaded 'yes' 'no'; then
       continue
-<<<<<<< HEAD
-    elif [[ ! -d "$ZPREZTODIR/modules/$pmodule" ]]; then
-      print "$0: no such module: $pmodule" >&2
-      continue
-    else
-      if [[ -s "$ZPREZTODIR/modules/$pmodule/init.zsh" ]]; then
-        source "$ZPREZTODIR/modules/$pmodule/init.zsh"
-=======
     else
       locations=(${pmodule_dirs:+${^pmodule_dirs}/$pmodule(-/FN)})
       if (( ${#locations} > 1 )); then
@@ -171,18 +127,13 @@ function pmodload {
         source "${pmodule_location}/init.zsh"
       elif [[ -s "${pmodule_location}/${pmodule}.plugin.zsh" ]]; then
         source "${pmodule_location}/${pmodule}.plugin.zsh"
->>>>>>> upstream/master
       fi
 
       if (( $? == 0 )); then
         zstyle ":prezto:module:$pmodule" loaded 'yes'
       else
         # Remove the $fpath entry.
-<<<<<<< HEAD
-        fpath[(r)${ZPREZTODIR}/modules/${pmodule}/functions]=()
-=======
         fpath[(r)${pmodule_location}/functions]=()
->>>>>>> upstream/master
 
         function {
           local pfunction
@@ -192,11 +143,7 @@ function pmodload {
           setopt LOCAL_OPTIONS EXTENDED_GLOB
 
           # Unload Prezto functions.
-<<<<<<< HEAD
-          for pfunction in $ZPREZTODIR/modules/$pmodule/functions/$~pfunction_glob; do
-=======
           for pfunction in ${pmodule_location}/functions/$~pfunction_glob; do
->>>>>>> upstream/master
             unfunction "$pfunction"
           done
         }

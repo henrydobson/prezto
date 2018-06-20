@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-Please check if a similar issue already exists or has been closed before before opening your issue.
-
-### Description
-
-[Description of the bug or feature]
-
-### Expected behavior
-
-[What you expected to happen]
-
-### Actual behavior
-
-[What actually happened]
-=======
 <!-- Please check if a similar issue already exists or has been closed before before opening your issue. -->
 
 ### Description
@@ -25,7 +10,6 @@ Please check if a similar issue already exists or has been closed before before 
 ### Actual behavior
 
 <!-- What actually happened -->
->>>>>>> upstream/master
 
 ### Steps to Reproduce
 
