@@ -24,7 +24,7 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Zsh functions to load (man zshcontrib).
 # zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 
-launchctl stop com.openssh.ssh-agent
+# launchctl stop com.openssh.ssh-agent
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
@@ -44,7 +44,12 @@ zstyle ':prezto:load' pmodule \
   'osx' \
   'rsync' \
   'syntax-highlighting' \
-  'screen'
+  'screen' \
+  'tmux'
+
+#  'history' \
+#  'ssh' \
+#  'git' \
 
 #
 # Autosuggestions
@@ -168,7 +173,7 @@ zstyle ':prezto:module:prompt' theme 'pure'
 #
 
 # Set the SSH identities to load into the agent.
-#zstyle ':prezto:module:ssh:load' identities 'id_rsa'
+zstyle ':prezto:module:ssh:load' identities 'iag-sharedservices-ssvc.pub'
 
 #
 # Syntax Highlighting
@@ -254,10 +259,24 @@ export VISUAL='vim'
 
 alias vi=vim
 alias t=terraform
+alias tp='terraform plan'
+alias ta='terraform apply'
+alias td='terraform destroy'
+alias twl='terraform workspace list'
+alias tws='terraform workspace select'
+alias tfu='terraform force-unlock'
 alias k=kubectl
 alias sed=gsed
+alias test-pindfed-aat='cd ~/src/idam/qa/ && ./gradlew pingFederateIntegration -PpingFederateAdminUrl='https://identity-management.aat.iag.clients.amido.com:9999/' -PpingFederatePassword='Password_01!!' -PpingFederateUsername=Administrator -PpingFederateRuntimeUrl='https://identity-management.aat.iag.clients.amido.com:9031/' -PpingDirectoryUrl=https://group-directory.aat.iag.clients.amido.com -PpingDirectoryUsername='cn=Directory Manager' -PpingDirectoryPassword='Password_01!!' -i'
+twd() {
+    workspace_to_destroy=$(terraform workspace list | grep '*' | awk '{ print $2 }')
+    terraform destroy
+    terraform workspace select default
+    terraform workspace delete $workspace_to_destroy
+    [ $? -ne 0 ] && terraform workspace select $workspace_to_destroy
+}
 
-# Custom scripts 
+# Custom scripts
 
 autoload -U compinit && compinit
 

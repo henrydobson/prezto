@@ -11,7 +11,8 @@ if (( ! $+commands[ssh-agent] )); then
 fi
 
 # Set the path to the SSH directory.
-_ssh_dir="$HOME/.ssh"
+_ssh_dir="/var/idam/infrastructure/keys"
+# _ssh_dir="$HOME/.ssh"
 
 # Set the path to the environment file if not set by another module.
 _ssh_agent_env="${_ssh_agent_env:-${TMPDIR:-/tmp}/ssh-agent.env.$UID}"
