@@ -167,6 +167,10 @@ function pmodload {
 # the current directory of the shell rather than the prezto dir.
 ZPREZTODIR=${0:h}
 
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
+
 # Source the Prezto configuration file.
 if [[ -s "${ZDOTDIR:-$HOME}/.zpreztorc" ]]; then
   source "${ZDOTDIR:-$HOME}/.zpreztorc"
