@@ -12,12 +12,21 @@ fi
 
 # Customize to your needs...
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-eval "$(jenv init -)"
+
+# Jenv used to be part of my Java configuration to make it simple to swap between local versions. It's not required at NICE so I'm commenting it.
+# eval "$(jenv init -)"
+
+# Enable command auto completion for aws
+# autoload bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+# complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# # Enable 1password command auto completion
+# eval "$(op completion zsh)"; compdef _op op
+# source /Users/Henry.Dobson/.config/op/plugins.sh
